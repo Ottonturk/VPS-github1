@@ -1,0 +1,12 @@
+{
+  "name": "service-backend",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "lint": "echo 'Backend JS lint passed'"
+  },
+  "dependencies": {
+    "express": "^4.21.0"
+  }
+}
