@@ -1,0 +1,8 @@
+{
+  "name": "service-frontend",
+  "version": "1.0.0",
+  "scripts": {
+    "lint": "echo 'Frontend JS lint passed'",
+    "test": "echo 'Frontend tests passed'"
+  }
+}

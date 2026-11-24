@@ -1,0 +1,27 @@
+services:
+  proxy:
+    image: caddy:2-alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./proxy/Caddyfile:/etc/caddy/Caddyfile:ro
+    depends_on:
+      - backend
+      - frontend
+
+  backend:
+    build: ./backend
+    env_file:
+      - .env
+
+  bot:
+    build: ./bot
+    env_file:
+      - .env
+    environment:
+      - BACKEND_URL=http://backend:3000
+    depends_on:
+      - backend
+
+  frontend:
+    build: ./frontend

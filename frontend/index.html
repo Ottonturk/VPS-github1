@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head><meta charset="UTF-8" /><title>Service Dashboard</title></head>
+<body>
+  <h1>Web-интерфейс работает</h1>
+  <button onclick="checkApi()">Проверить Backend API</button>
+  <pre id="output"></pre>
+  <script>
+    async function checkApi() {
+      const res = await fetch('/api/health');
+      document.getElementById('output').textContent = JSON.stringify(await res.json(), null, 2);
+    }
+  </script>
+</body>
+</html>

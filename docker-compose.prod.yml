@@ -1,0 +1,38 @@
+services:
+  proxy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./proxy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - backend
+      - frontend
+
+  backend:
+    image: ghcr.io/${GITHUB_REPOSITORY_OWNER}/${REPO_NAME}-backend:latest
+    restart: unless-stopped
+    env_file:
+      - .env
+
+  bot:
+    image: ghcr.io/${GITHUB_REPOSITORY_OWNER}/${REPO_NAME}-bot:latest
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - BACKEND_URL=http://backend:3000
+    depends_on:
+      - backend
+
+  frontend:
+    image: ghcr.io/${GITHUB_REPOSITORY_OWNER}/${REPO_NAME}-frontend:latest
+    restart: unless-stopped
+
+volumes:
+  caddy_data:
+  caddy_config:
